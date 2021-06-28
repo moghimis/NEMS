@@ -26,8 +26,10 @@ $(call require_dir,$(PAHM_SRCDIR),PAHM source directory)
 build_PAHM: $(pahm_mk)
 
 $(pahm_mk):
-	cd $(PAHM_SRCDIR); exec ./build.sh --compiler=$(NEMS_COMPILER) --plat=$(NEMS_PLATFORM) \
-	   --prefix=$(PAHM_BINDIR) --verbose=1
+	+cd $(PAHM_SRCDIR); exec ./build.sh --compiler=$(NEMS_COMPILER) --plat=$(NEMS_PLATFORM) \
+	   --parallel=${NEMS_PARALLEL} --prefix=$(PAHM_BINDIR) --verbose=1
+#	+cd $(PAHM_SRCDIR); exec ./build.sh --compiler=$(NEMS_COMPILER) --plat=$(NEMS_PLATFORM) \
+#	   --prefix=$(PAHM_BINDIR) --verbose=1
 	@if [ $$? -eq 0 ]; \
 	then \
 	  cd $(PAHM_SRCDIR)/nuopc; exec $(MAKE) nuopcinstall \
